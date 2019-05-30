@@ -1,0 +1,149 @@
+<!doctype html>
+<html ng-app="theFarmApp">
+<head>
+<meta charset="utf-8">
+<title>The Farm</title>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="lib/angular/angular.js"></script>
+<script type="text/javascript" src="lib/angular/angular-route.js"></script>
+<script type="text/javascript" src="lib/angular/angular-animate.min.js"></script>
+<script type="text/javascript" src="lib/froala/js/froala_editor.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
+<script type="text/javascript" src="js/filters.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+
+<script>
+	$(document).ready(function(e) {
+		$('.editable_block').editable({inlineMode: true});
+		$('.carousel').carousel();
+
+    $(".navbar-nav li a").click(function(){
+      $(".navbar-nav li").removeClass("active");
+      $(this).parent().addClass("active");
+    });
+    $("#seasonId").change(function(){
+      location.reload();
+    });
+    $("#yearId").change(function(){
+      location.reload();
+    });
+
+    var today = Date.now();
+    var lastFrost = new Date("2017-04-23");  //sun is the cutoff for the week
+    var weeks = Math.ceil((today-lastFrost)/ 604800000);
+    $("#current_week").html(weeks);
+
+    var aThisPage = window.location.href;
+    aThisPage = aThisPage.split("/");
+    var thisPage = aThisPage[aThisPage.length - 1];
+    switch(thisPage){
+      case "list":
+        $(".navbar-nav li").removeClass("active");
+        $("#btn_icg").addClass("active");
+        break;
+      case "plan":
+        $(".navbar-nav li").removeClass("active");
+        $("#btn_plan").addClass("active");
+        break;
+      case "tsk":
+        $(".navbar-nav li").removeClass("active");
+        $("#btn_tsk").addClass("active");
+        break;
+    }
+	});
+
+</script>
+
+
+<link href="lib/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css" />
+<link href="lib/froala/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+<link rel='stylesheet' type='text/css' href='css/fonts.css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" type='text/css' href="css/styles.css">
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <!--<div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>-->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li id="btn_fjo"><a href="http://localhost/__FARM_DIGITAL/_GardenJournal/" data-toggle="tooltip" title="Field Journal"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;FJO </a></li>
+        <li id="btn_icg" class="active"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/list" data-toggle="tooltip" title="Interactive Crop Guide"><span class="glyphicon glyphicon-grain"></span>&nbsp;&nbsp;ICG</a></li>
+        <li id="btn_plan"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/plan" data-toggle="tooltip" title="Season Planner"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;PLAN</a></li>
+        <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/tsk" data-toggle="tooltip" title="Task List"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;TASK</a></li>
+        <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/plot" data-toggle="tooltip" title="Plot Graphics"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;PLOT</a></li>
+        <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/blap" data-toggle="tooltip" title="Bottom Line App"><span class="glyphicon glyphicon-piggy-bank"></span>&nbsp;&nbsp;BLAP</a></li>
+        <!--<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>-->
+      </ul>
+      <!--<form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class
+
+        ="btn btn-default">Submit</button>
+      </form>-->
+              <!--<div class="idSetting"><input id="yearId" name="yearId" value="2016" size="5"></div>
+        <div class="idSetting">
+          <select id="seasonId" name="seasonId" width="5">
+            <option value="spring" selected>spring</option>
+            <option value="fall">fall</option>
+          </select>
+        </div>-->
+
+          
+        <div class="idSetting"><input id="yearId" name="yearId" value="2017" size="5"></div>
+        <div class="idSetting">
+          <select id="seasonId" name="seasonId" width="4">
+            <option value="spring">spring</option>
+            <option value="fall">fall</option>
+          </select>
+        </div>
+        <div class="idSetting thisWeek">This is week <span id="current_week"></span></div>
+      <!--<ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>-->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="" ng-view>
+</div>
+  <audio id="audioClick">
+    <source src="audio/delete_bubble_click.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio> 
+</body>
+</html>

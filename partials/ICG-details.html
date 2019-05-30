@@ -1,0 +1,178 @@
+<section class="cropProfilePage">
+	<div class="cropProfileCtr">
+    
+        <div role="tabpanel" class="editImagesTabPanel" edit-images-tab-panel>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#addImageTab" aria-controls="addImageTab" role="tab" data-toggle="tab">Add Image</a></li>
+            <li role="presentation"><a href="#reorderImageTab" aria-controls="reorderImageTab" role="tab" data-toggle="tab">Re-order Images</a></li>
+          </ul>
+        
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active addImageCtr" id="addImageTab" add-crop-image>			
+                Image filename: <input class="centered_text" id="imgFile" name="imgFile" value="2016/06/IMG_0000" elastic-input><br>
+                Image caption: <input class="centered_text" id="imgCaption" name="imgCaption" value="" elastic-input>
+                <!--<div>
+                    Is this a thumbnail? 
+                    <label><input type="radio" name="isThumb" value="1" id="isThumb_0">yes</label>
+                    <label><input type="radio" name="isThumb" value="0" id="isThumb_1" checked>no</label>
+                    <br>
+                </div>-->
+                <div class="tabPanelNav"><button class="submitImgBtn">Submit</button>&nbsp;<button class="cancelImgBtn">Cancel</button></div>
+            </div>
+            <div role="tabpanel" class="tab-pane reorderImageCtr" id="reorderImageTab" reorder-crop-image ng-controller="ImagesPanelController as imagesPanel">
+            	<div class="reorderTabCtr">
+                    <table width="100%" border="0" cellpadding="0">
+                        <tbody>
+                            <tr ng-repeat="image in images track by image.imageFile">
+                                <td class="reorderColImg"><img src="http://localhost/__FARM_DIGITAL/_GardenJournal/wp-content/uploads/{{image.imageFile}}-150x150.png" width="150" alt=""/></td>
+                                <td class="reorderColCaption">{{image.imageCaption}}</td>
+                                <td class="reorderColRadio"><label><input type="radio" class="assignThumbRadio" name="assignThumb" value="1" id="assignThumb_{{thisIndex}}" this-index="{{$index}}" is-the-thumb="{{image.isThumb}}" image-mark="{{image.mark}}" check-for-thumb></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabPanelNav"><button class="reorderImgBtn">Submit</button>&nbsp;<button class="cancelImgBtn">Cancel</button></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cropProfileNav"> 
+        	<div class="noShow">test</div><span class="noShowHeight">test</span>
+            <a href="index.html#/list">&laquo; Back to search</a>
+            <!--<a href="#/details/{{prevItem}}" class="">&lt;</a>
+            <a href="#/details/{{nextItem}}" class="">&gt;</a>-->
+        </div>
+        <form name="cropDetailsForm" novalidate>
+      
+    	<div class="cropProfileLeftCol cropProfileCol">
+        	<section class="cropImagesCtr" ng-controller="ImagesPanelController as imagesPanel">
+            	<div class="cropCarouselCtr">
+                    <div id="imgCarousel" class="carousel slide" data-ride="carousel">
+                      <!-- Indicators -->
+                    	<ul class="carousel-indicators imageCarousel" ng-show="images[0].imageFile">
+                      		<li ng-class="{'active': $first}" data-target="#imgCarousel" data-slide-to="{{$index}}" ng-repeat="image in images track by image.imageFile"></li>
+                      	</ul>
+                        <ul class="imageCarousel" ng-show="!images[0].imageFile">
+                            <li ng-show="!images[0].imageFile"><span class="detailsImageCtr" btn-show-image-admin-panel><img src="images/noImagePlaceholder.png" width="300" alt=""/></span></li>
+                        </ul>
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item" ng-class="{'active': $first}" ng-repeat="image in images track by image.imageFile">
+                            <span class="detailsImageCtr" btn-show-image-admin-panel><img src="http://localhost/__FARM_DIGITAL/_GardenJournal/wp-content/uploads/{{image.imageFile}}-300x200.png" width="300" alt="{{image.imageCaption}}"/></span>
+                            <div class="carousel-caption">{{image.imageCaption}}</div>
+                        </div>
+                      </div>
+                    </div>        
+                </div>
+            </section>
+        </div>
+    	<div class="cropProfileRightCol cropProfileCol">
+          <h1 class="cropTitle" id="crop{{crops[whichItem].varietyId}}"><input class="editable-block centered_text" id="d_Name" name="VarietyName" value="{{crops[whichItem].varietyName}}" elastic-input select-all-focus required></h1>
+          
+          <h3><input class="editable-block centered_text" id="d_cropCode" name="CropCode" value="{{crops[whichItem].cropCode}}" elastic-input select-all-focus></h3>
+          <div class="varietyStamp"><span toggle-input toggle-value="{{crops[whichItem].isOrganic}}" toggle-type="Organic"></span><span toggle-input toggle-value="{{crops[whichItem].isHeirloom}}" toggle-type="Heirloom"></span><span toggle-input toggle-value="{{crops[whichItem].isMixedVarietySeed}}" toggle-type="MixedVarietySeed"></span><span toggle-input toggle-value="{{crops[whichItem].isPerennial}}" toggle-type="Perennial"></span></div>
+            <div class="propGermDetailsBlock cropDetailsBlock">
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Propagation Method: <br/></span><!--<input class="editable-block centered_text" id="d_propMethod" value="{{crops[whichItem].propagationMethod | propMethod}}" elastic-input>-->
+               	  <select class="editable-block" id="d_propMethod" name="PropagationMethod" ng-model="propMethodSelected" ng-options="val for val in getFieldOptions('PropagationMethod')">
+                    </select></div>
+              <div class="cropDetailsLine" ng-show="propMethodSelected == 'indoorBlock'"><span class="cropDetailsTitle">Soil Blocks Used: <br/></span><span toggle-input toggle-value="{{crops[whichItem].isBlockMini}}" toggle-type="BlockMini"></span> | <span toggle-input toggle-value="{{crops[whichItem].isBlockMedium}}" toggle-type="BlockMedium"></span> | <span toggle-input toggle-value="{{crops[whichItem].isBlockLarge}}" toggle-type="BlockLarge"></span></div>
+                <div class="cropDetailsLine" ng-hide="propMethodSelected == 'cutting'"><span class="cropDetailsTitle">Number of Seeds:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_numSeeds" name="NumSeedsSownForEach" value="{{crops[whichItem].numSeedsSownForEach | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Spring First Seeding Date:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_springFirstSeeding" name="SpringFirstSeedingDate" value="{{crops[whichItem].springFirstSeedingDate | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Spring Last Seeding Date:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_springLastSeeding" name="SpringLastSeedingDate" value="{{crops[whichItem].springLastSeedingDate | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Fall First Seeding Date:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_fallFirstSeeding" name="FallFirstSeedingDate" value="{{crops[whichItem].fallFirstSeedingDate | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Fall Last Seeding Date:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_fallLastSeeding" name="FallLastSeedingDate" value="{{crops[whichItem].fallLastSeedingDate | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine" ng-hide="propMethodSelected == 'cutting'"><span class="cropDetailsTitle">Germination Rate:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_germRate" name="GerminationRate" value="{{crops[whichItem].germinationRate | perc}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine" ng-hide="propMethodSelected == 'cutting'"><span class="cropDetailsTitle">Germination Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_germTemp" name="GerminationTemp" value="{{crops[whichItem].germinationTemp | temp}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine" ng-hide="propMethodSelected == 'cutting'"><span class="cropDetailsTitle">Ideal Germination Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_idealGermTemp" name="IdealGerminationTemp" value="{{crops[whichItem].idealGerminationTemp | temp}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine" ng-show="propMethodSelected == 'indoorBlock'"><span class="cropDetailsTitle">Days to Transplant:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_daysTransplant" name="DaysToTransplant" value="{{crops[whichItem].daysToTransplant | noempty}}" elastic-input select-all-focus></div>
+            </div>
+            <div class="transDetailsBlock cropDetailsBlock">
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">pH:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_pH" name="PH" value="{{crops[whichItem].pH | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Growing Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_growTemp" name="GrowingTemp" value="{{crops[whichItem].growingTemp | temp}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Ideal Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_idealTemp" name="IdealTemp" value="{{crops[whichItem].idealTemp | temp}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Plant Spacing:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_plantSpacing" name="PlantSpacing" value="{{crops[whichItem].plantSpacing | inches}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Row Spacing:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_rowSpacing" name="RowSpacing" value="{{crops[whichItem].rowSpacing | inches}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Seed Depth:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_seedDepth" name="SeedDepth" value="{{crops[whichItem].seedDepth | inches}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Days to Harvest:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_daysMaturity" name="DaysToMaturity" value="{{crops[whichItem].daysToMaturity | noempty}}" elastic-input select-all-focus></div>
+                <!--<div class="cropDetailsLine"><span class="cropDetailsTitle">Range 1:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_range1" name="Range1" value="{{crops[whichItem].range1 | noempty}}" elastic-input></div>-->
+           <!-- </div>
+            <div class="harvDetailsBlock cropDetailsBlock">-->
+                <hr style="height:1px; background-color:#aaa">
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Storage Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_storTemp" name="StorageTemp" value="{{crops[whichItem].storageTemp | temp}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Storage Humidity:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_storHumidity" name="StorageHumidity" value="{{crops[whichItem].storageHumidity | perc}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Pre-cool Method:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_precoolMethod" name="PrecoolingMethod" value="{{crops[whichItem].precoolingMethod | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Storage Life:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_storLife" name="StorageLife" value="{{crops[whichItem].storageLife | noempty}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Ethylene Sensitive? </span><span toggle-input toggle-value="{{crops[whichItem].isEthyleneSensitive}}" toggle-type="EthyleneSensitive"></span></div>
+            </div>
+            <div class="genDetailsBlock cropDetailsBlock">
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Plant Height:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_plantHeight" name="PlantHeight" value="{{crops[whichItem].plantHeight | inches}}" elastic-input select-all-focus></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Seed Supplier:<br/></span><!--<input class="editable-block centered_text" id="d_seedSupplier" value="{{crops[whichItem].seedSupplier | noempty}}" elastic-input>--><select class="editable-block" id="d_seedSupplier" name="SeedSupplier" ng-model="seedSupplierSelected" ng-options="val for val in getFieldOptions('SeedSupplier')">
+              </select></div>
+                <div class="cropDetailsLine"><span class="cropDetailsTitle">Date Added:<br/></span><!--<input class="noneditable_block centered_text" id="d_dateAdded" value="-->{{crops[whichItem].dateAdded | displayDate}}<!--">--></div>
+            </div>
+        </div>
+        </form>
+    	<div class="clr"></div>
+        
+        
+        
+        <section class="cropNotesTabs" ng-controller="NotesPanelController as notesPanel">
+        	<ul class="nav nav-pills">
+            	<li ng-class="{active: notesPanel.isSelected(1)}"> <a href ng-click="notesPanel.selectTab(1)">General</a></li>
+            	<li ng-class="{active: notesPanel.isSelected(2)}"> <a href ng-click="notesPanel.selectTab(2)">Growing</a></li>
+            	<li ng-class="{active: notesPanel.isSelected(3)}"> <a href ng-click="notesPanel.selectTab(3)">Harvest</a></li>
+            	<li ng-class="{active: notesPanel.isSelected(4)}"> <a href ng-click="notesPanel.selectTab(4)">Storage</a></li>
+            	<li ng-class="{active: notesPanel.isSelected(5)}"> <a href ng-click="notesPanel.selectTab(5)">Marketing</a></li>
+            	<li ng-class="{active: notesPanel.isSelected(6)}"> <a href ng-click="notesPanel.selectTab(6)">FJO</a></li>
+            </ul>
+            <div class="panel" ng-show="notesPanel.isSelected(1)" >
+            	<ul class="cropNotesTabList">
+                	<li ng-repeat="note in notesGeneral track by $index" ng-class="{'activeHighlight': note.isNoteHighlighted == 1, 'activeUniversal': note.isUniversal == 1}"><span class="noteIcons noteDelete" note-delete><img src="images/noteIconDelete.png" width="15" /></span><span class="noteIcons noteHighlight" note-highlight><img src="images/noteIconHighlight.png" width="15" /></span><span class="noteIcons noteUniversal" note-universal><img src="images/noteIconUniversal.png" width="15" /></span><textarea class="editable-note" id="n_gene{{note.noteId}}" name="n_general_{{note.noteId}}" elastic-textarea>{{note.noteCopy | longText}}</textarea></li>
+                    <li><textarea class="editable-note" id="n_gene_new" name="n_general_new" select-all-focus elastic-textarea>...add new note</textarea></li>
+            	</ul>
+            </div>
+            <div class="panel" ng-show="notesPanel.isSelected(2)">
+            	<ul class="cropNotesTabList">
+                	<li ng-repeat="note in notesGrowing track by $index" ng-class="{'activeHighlight': note.isNoteHighlighted == 1, 'activeUniversal': note.isUniversal == 1}"><span class="noteIcons noteDelete" note-delete><img src="images/noteIconDelete.png" width="15" /></span><span class="noteIcons noteHighlight" note-highlight><img src="images/noteIconHighlight.png" width="15" /></span><span class="noteIcons noteUniversal" note-universal><img src="images/noteIconUniversal.png" width="15" /></span><textarea class="editable-note" id="n_grow{{note.noteId}}" name="n_growing_{{note.noteId}}" elastic-textarea>{{note.noteCopy | longText}}</textarea></li>
+                    <li><textarea class="editable-note" id="n_grow_new" name="n_growing_new" select-all-focus elastic-textarea>...add new note</textarea></li>
+            	</ul>
+            </div>
+            <div class="panel" ng-show="notesPanel.isSelected(3)">
+            	<ul class="cropNotesTabList">
+                	<li ng-repeat="note in notesHarvest track by $index" ng-show="note.noteType == 'harvest'" ng-class="{'activeHighlight': note.isNoteHighlighted == 1, 'activeUniversal': note.isUniversal == 1}"><span class="noteIcons noteDelete" note-delete><img src="images/noteIconDelete.png" width="15" /></span><span class="noteIcons noteHighlight" note-highlight><img src="images/noteIconHighlight.png" width="15" /></span><span class="noteIcons noteUniversal" note-universal><img src="images/noteIconUniversal.png" width="15" /></span><textarea class="editable-note" id="n_harv{{note.noteId}}" name="n_harvest_{{note.noteId}}" elastic-textarea>{{note.noteCopy | longText}}</textarea></li>
+                    <li><textarea class="editable-note" id="n_harv_new" name="n_harvest_new" select-all-focus elastic-textarea>...add new note</textarea></li>
+            	</ul>
+            </div>
+            <div class="panel" ng-show="notesPanel.isSelected(4)">
+            	<ul class="cropNotesTabList">
+                	<li ng-repeat="note in notesStorage track by $index" ng-show="note.noteType == 'storage'" ng-class="{'activeHighlight': note.isNoteHighlighted == 1, 'activeUniversal': note.isUniversal == 1}"><span class="noteIcons noteDelete" note-delete><img src="images/noteIconDelete.png" width="15" /></span><span class="noteIcons noteHighlight" note-highlight><img src="images/noteIconHighlight.png" width="15" /></span><span class="noteIcons noteUniversal" note-universal><img src="images/noteIconUniversal.png" width="15" /></span><textarea class="editable-note" id="n_stor{{note.noteId}}" name="n_storage_{{note.noteId}}" elastic-textarea>{{note.noteCopy | longText}}</textarea></li>
+                    <li><textarea class="editable-note" id="n_stor_new" name="n_storage_new" select-all-focus elastic-textarea>...add new note</textarea></li>
+            	</ul>
+            </div>
+            <div class="panel" ng-show="notesPanel.isSelected(5)">
+            	<ul class="cropNotesTabList">
+                	<li ng-repeat="note in notesMarketing track by $index" ng-show="note.noteType == 'marketing'" ng-class="{'activeHighlight': note.isNoteHighlighted == 1, 'activeUniversal': note.isUniversal == 1}"><span class="noteIcons noteDelete" note-delete><img src="images/noteIconDelete.png" width="15" /></span><span class="noteIcons noteHighlight" note-highlight><img src="images/noteIconHighlight.png" width="15" /></span><span class="noteIcons noteUniversal" note-universal><img src="images/noteIconUniversal.png" width="15" /></span><textarea class="editable-note" id="n_mark{{note.noteId}}" name="n_marketing_{{note.noteId}}" elastic-textarea>{{note.noteCopy | longText}}</textarea></li>
+                    <li><textarea class="editable-note" id="n_mark_new" name="n_marketing_new" select-all-focus elastic-textarea>...add new note</textarea></li>
+            	</ul>
+            </div>
+            <div class="panel" ng-show="notesPanel.isSelected(6)">
+            	<div class="fjo_ctr">
+                	<div class="fjo_header_bar">{{fjo.length}} records found</div>
+                    <hr width="97%">
+                    <ul class="fjo_list cropNotesTabList">
+                        <li ng-repeat="post in fjo | orderBy: 'postId': 'reverse' ">
+                        	<div class="fjo_record" id="n_fjoo{{post.postId}}">
+                            	<h3><span ng-bind-html="post.postTitle | unsafe"></span> <span class="fjo_record_date">({{post.postDate}}) [{{post.postId}}]</span></h3>
+                                <div class="fjo_record_copy" ng-bind-html="post.postContent | unsafe"></div>
+                            </div>
+                            <hr width="97%">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</section><br>
+<br>

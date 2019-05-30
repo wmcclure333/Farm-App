@@ -1,0 +1,200 @@
+<section class="planPage">
+    <div id="planBlocks">  
+        <div id="existingCropCtr">
+            <h2>Existing Crops in Plan</h2>
+            <div class="existingCropPlan cropDetailsBlock">
+                <ul id="existingCropList">
+                    <li>
+                        <ul class="inlineList listHeader">
+                            <li class="cropname">crop</li>
+                            <li class="succ">successions</li>
+                            <li class="date">added</li>
+                            <li class="delete">delete</li>
+                        </ul>
+                    </li>
+                    <li class="existingCrops" taskGroup="{{existingCrop.varietyId}}_{{existingCrop.entryId}}" ng-repeat="existingCrop in existingCropsInPlan as existCrops track by $index">
+                        <ul class="inlineList">
+                            <li class="cropname">{{getCropNameAndVarietyFromId(existingCrop.varietyId)}}</li>
+                            <li class="succ">
+                                <span>{{existCrops[$index].succession1}}</span>
+                                <span ng-hide="{{existCrops[$index].succession2}} == 0">, {{existCrops[$index].succession2}}</span>
+                                <span ng-hide="{{existCrops[$index].succession3}} == 0">, {{existCrops[$index].succession3}}</span>
+                                <span ng-hide="{{existCrops[$index].succession4}} == 0">, {{existCrops[$index].succession4}}</span>
+                                <span ng-hide="{{existCrops[$index].succession5}} == 0">, {{existCrops[$index].succession5}}</span>
+                                <span ng-hide="{{existCrops[$index].succession6}} == 0">, {{existCrops[$index].succession6}}</span>
+                                <span ng-hide="{{existCrops[$index].succession7}} == 0">, {{existCrops[$index].succession7}}</span>
+                                <span ng-hide="{{existCrops[$index].succession8}} == 0">, {{existCrops[$index].succession8}}</span>
+                                <span ng-hide="{{existCrops[$index].succession9}} == 0">, {{existCrops[$index].succession9}}</span>
+                                <span ng-hide="{{existCrops[$index].succession10}} == 0">, {{existCrops[$index].succession10}}</span>
+                            </li>
+                            <li class="date">{{existingCrop.dateAdded}}</li>
+                            <li class="delete"><button type="button" class="btn btn-danger btn_delete" id="crop_{{existingCrop.entryId}}" group="existCrops" thisindex="$index" delete-crop-from-plan>X</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <p>&nbsp;</p>
+        </div>
+        <div id="addCropCtr">
+            <h2 class="">Add Crop(s) to Plan</h2>
+            <div class="addCropLine cropDetailsBlock">
+                <!--<input class="editable-block centered_text" id="d_propMethod" value="{{crops[whichItem].propagationMethod | propMethod}}" elastic-input>-->
+                <select class="editable-block" id="d_addCropCode" database="none" name="AddCropCode" ng-model="cropCodeSelected" ng-options="item as item.cropName for item in getCropCodeOptions() track by item.cropCode">
+                </select>
+                <select class="editable-block" id="d_addCrop" database="none" name="AddCrop" ng-model="cropSelected" ng-options="item as item.varietyName for item in getCropOptions(cropCodeSelected.cropCode) track by item.varietyId" update-seed-dates>
+                </select>
+                <div class="addCropLeftCol">
+                    <div class="plantTotalLine"><span class="">Total Number of Beds:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_numPlants" database="none" name="NumPlants" ng-model="numPlants" value="{{0 | noempty}}" elastic-input select-all-focus update-succession-count></div>
+                    <div class="cropSuccessionsLine"><span class="">Number of Successions:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_numSuccessions" database="none" name="NumSuccessions" ng-model="numSuccessions" value="{{0 | noempty}}" elastic-input select-all-focus update-succession-count></div>
+                    <div class="cropSuccessionPlants" ng-repeat="succession in getCropNumSuccessions() track by $index"><input class="editable-block centered_text" id="d_numPlantsSuccession{{$index}}" database="none" name="NumPlantsSuccession{{$index}}" ng-model="successions[$index]" placeholder="" elastic-input select-all-focus><span>&nbsp;&nbsp;in succession {{$index+1}} on &nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_dateSuccession{{$index}}" database="none" name="DateSuccession{{$index}}" placeholder="" elastic-input select-all-focus></div>
+                </div>
+                <div class="addCropRightCol">
+                    <div id="first_seed_date">First seed: <span></span></div>
+                    <div id="last_seed_date">Last seed: <span ></span></div>
+                </div>
+                <div class="addCropBtn" id="addCrop{{$index}}"><button type="button" class="btn btn-success" add-crop-to-plan>+ Add</button></div>
+            </div>
+            <div><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/list">Add new varieties</a></div>
+        </div>
+        <div class="clr"></div>
+        <!--<div id="generatePlanBtnCtr"><button type="button" class="btn btn-danger" id="generatePlanBtn" generate-task-list>Generate Task List</button></div>-->
+        <p>&nbsp;</p><p>&nbsp;</p>
+    </div><!-- planBlocks -->
+
+    
+
+
+
+    <div id="taskBlocks">
+        <h2>Tasks</h2>
+        <div class="navBlocksCtr">
+            <div class="navBlock"><button type="button" class="btn btn-success" add-manual-task>+ Add new task</button></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="searchBlock navBlock">
+                <input ng-model="query" placeholder="Search tasks" width="100%" autofocus>
+            </div>
+            <div class="orderingBlock navBlock">
+                <label class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort by:
+                    <select ng-model="taskOrder">
+                        <option value="subject">Subject</option>
+                        <option value="tDate">Task Date</option>
+                        <option value="task">Task</option>
+                        <option value="succession">Succession</option>
+                        <option value="plot">Plot</option>
+                        <option value="notes">Notes</option>
+                        <option value="taskStatus">Status</option>
+                   </select>
+                </label>
+                &nbsp;&nbsp;&nbsp;<label class="formgroup">
+                    <input type="radio" ng-model="direction" name="direction" checked>
+                    <div class="glyphicon glyphicon-sort-by-attributes"></div>
+                    </label>&nbsp;&nbsp;&nbsp;
+                <label class="formgroup">
+                    <input type="radio" ng-model="direction" name="direction" value="reverse">
+                    <div class="glyphicon glyphicon-sort-by-attributes-alt"></div>
+                </label>
+            </div>
+            <div class="navBlock">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" ng-model="taskStatusFilters.active" /> Active 
+                &nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="taskStatusFilters.disabled" /> Disabled 
+                &nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="taskStatusFilters.completed" /> Completed 
+            </div>
+        </div>
+        <div id="taskListCtr">
+            <ul>
+                <li class="listHeaderCtr">
+                    <ul class="inlineList listHeader">
+                        <li class="tsk_complete_header"></li>
+                        <li class="tsk_tasksubject">subject</li>
+                        <li class="tsk_plot">plot</li>
+                        <li class="tsk_task">task</li>
+                        <li class="tsk_date">date</li>
+                        <li class="tsk_amount">amount</li>
+                        <li class="tsk_succession">succ.</li>
+                        <li class="tsk_notes">notes</li>
+                        <li class="delete">disable</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="taskList">
+                <li class="task_item" ng-repeat="thisTask in theTaskList | filter:query | byStatus:taskStatusFilters | orderBy: taskOrder:direction">
+                    <ul class="inlineList" id="task_{{thisTask.taskGroupId}}" thisTaskId="{{thisTask.entryId}}" thisOverwriteStatus="{{thisTask.overwriteStatus}}" thisTaskStatus="{{thisTask.taskStatus}}">
+                        <li class="tsk_complete" double-click-to-complete><div></div></li>
+                        <li class="tsk_tasksubject"><input class="editable-block centered_text" database="tskdb" id="t_subject" name="Subject" value="{{thisTask.subject | noempty}}" select-all-focus></li>
+                        <li class="tsk_plot"><input class="editable-block centered_text" database="tskdb" id="t_plot" name="Plot" value="{{thisTask.plot | noempty}}" select-all-focus></li>
+                        <li class="tsk_task"><input class="editable-block centered_text" database="tskdb" id="t_task" name="Task" value="{{thisTask.task | noempty}}" select-all-focus></li>
+                        <li class="tsk_date"><input class="editable-block centered_text" oldValue="{{thisTask.tDate}}" database="tskdb" id="t_tdate" name="TDate" value="{{thisTask.tDate}}" select-all-focus></li>
+                        <li class="tsk_amount"><input class="editable-block centered_text" database="tskdb" id="t_amount" name="Amount" value="{{thisTask.amount}}" select-all-focus></li>
+                        <li class="tsk_succession"><input class="editable-block centered_text" database="tskdb" id="t_succession" name="Succession" value="{{thisTask.succession | noempty}}" select-all-focus></li>
+                        <li class="tsk_notes"><input class="editable-block centered_text" database="tskdb" id="t_notes" name="Notes" value="{{thisTask.notes | noempty}}" select-all-focus></li>
+                        <li class="delete"><button type="button" class="btn btn-danger btn_delete" id="crop_{{thisTask.entryId}}" delete-task-from-list>X</button></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <p>&nbsp;</p><p>&nbsp;</p>
+        <h2>Harvests</h2>
+        <div class="addHarvestBlock cropDetailsBlock">
+            <select id="harvestInsertGroupId" name="harvestInsertGroupId">
+                <option ng-repeat="thisCropGroup in existingCropsInPlan" value="{{thisCropGroup.varietyId}}_{{thisCropGroup.entryId}}">{{getCropNameAndVarietyFromId(thisCropGroup.varietyId)}}</option>
+            </select>
+            <input class="" id="harvestTotal" name="harvestTotal" value="" placeholder="Harvest Total" select-all-focus>
+            &nbsp;&nbsp;harvested in week <input class="centered_text" size="3" id="harvestTDate" name="harvestTDate" value="{{thisCropWeek}}" select-all-focus>
+            &nbsp;&nbsp;<input class="" size="30" id="harvestNotes" name="harvestNotes" value="" placeholder="Notes on Harvest" select-all-focus>
+            <div class="navBlock">&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success" add-manual-harvest>+ Add harvest</button></div>
+        </div>
+
+
+        <div class="navBlocksCtr">
+            <div class="searchBlock navBlock">
+                <input ng-model="harvestQuery" placeholder="Search harvests" width="100%" autofocus>
+            </div>
+            <div class="orderingBlock navBlock">
+                <label class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort by:
+                    <select ng-model="harvestOrder">
+                        <option value="tDateCompleted">Harvest Date</option>
+                        <option value="varietyName">Variety</option>
+                        <option value="plot">Plot</option>
+                        <option value="taskTotalResult">Amount</option>
+                        <option value="notes">Notes</option>
+                   </select>
+                </label>
+                &nbsp;&nbsp;&nbsp;<label class="formgroup">
+                    <input type="radio" ng-model="hdirection" name="hdirection" checked>
+                    <div class="glyphicon glyphicon-sort-by-attributes"></div>
+                    </label>&nbsp;&nbsp;&nbsp;
+                <label class="formgroup">
+                    <input type="radio" ng-model="hdirection" name="hdirection" value="reverse">
+                    <div class="glyphicon glyphicon-sort-by-attributes-alt"></div>
+                </label>
+            </div>
+        </div>
+
+        <div id="harvestListCtr">
+            <ul>
+                <li class="listHeaderCtr">
+                    <ul class="inlineList listHeader">
+                        <li class="hrv_subject">subject</li>
+                        <li class="hrv_plot">plot</li>
+                        <li class="hrv_date">date</li>
+                        <li class="hrv_amount">amount</li>
+                        <li class="hrv_notes">notes</li>
+                        <li class="delete">remove</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="harvestList">
+                <li class="harvest_item" ng-repeat="thisHarvestItem in theHarvestList | filter:harvestQuery | orderBy: harvestOrder:hdirection">
+                    <ul class="inlineList" id="harvest_{{thisHarvestItem.taskGroupId}}" thisHarvestId="{{thisHarvestItem.entryId}}">
+                        <li class="hrv_subject"><input class="editable-block centered_text" database="none" id="h_subject" name="Subject" value="{{thisHarvestItem.varietyName | noempty}}" select-all-focus></li>
+                        <li class="hrv_plot"><input class="editable-block centered_text" database="none" id="h_plot" name="Plot" value="{{thisHarvestItem.plot | noempty}}" select-all-focus></li>
+                        <li class="hrv_date"><input class="editable-block centered_text" database="trakdb" id="h_tdate" name="TDateCompleted" value="{{thisHarvestItem.tDateCompleted}}" select-all-focus></li>
+                        <li class="hrv_amount"><input class="editable-block centered_text" database="trakdb" id="h_amount" name="TaskTotalResult" value="{{thisHarvestItem.taskTotalResult}}" select-all-focus></li>
+                        <li class="hrv_notes"><input class="editable-block centered_text" database="trakdb" id="h_notes" name="Notes" value="{{thisHarvestItem.notes | noempty}}" select-all-focus></li>
+                        <li class="delete"><button type="button" class="btn btn-danger btn_delete" id="crop_{{thisHarvestItem.entryId}}" delete-harvest-from-list>X</button></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <p>&nbsp;</p><p>&nbsp;</p>        
+    </div><!-- taskBlocks -->
+</section>

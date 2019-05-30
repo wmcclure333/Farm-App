@@ -1,0 +1,606 @@
+@charset "utf-8";
+/****************************** Global **********/
+body{
+	font-family: 'Vollkorn', serif;
+	font-size:16px;
+	padding-top: 70px;
+}
+h2, h3, h4{
+	margin:0px;
+	padding:0px;	
+}
+.clr{
+	clear:both;	
+}
+input.editable-block, input.editable-note{
+	background:none;
+	background-color:#fff;
+	border:none;
+}
+input.noneditable_block{
+	background:none;
+	border:none;
+}
+.centered_text{
+	text-align:center;	
+}
+.noShow, .noShowHeight{
+	position:absolute;
+	top:-1000px;
+	visibility:hidden;	
+}
+/*.noShowHeight{
+visibility:visible;
+	top:200px;
+	}*/
+.toggle1{
+	opacity:1;
+	cursor:pointer;
+}
+.toggle0{
+	opacity:.1;
+	cursor:pointer;
+}
+.highlight{
+	background-color:yellow;	
+}
+.idSetting{
+	float:right;
+	width:80px;
+	text-align:center;
+	padding-top:10px;
+	color:blue;
+}
+.idSetting input, .idSetting select{
+	background:none;
+	border:none;
+}
+.thisWeek{ width:150px; color:black; }
+.btn_delete{
+	padding:2px 8px 0px 8px;
+	font-size:0.9em;	
+}
+
+.btn-success{
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+.btn-success:hover{
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+/****************************** Crop List Directory **********/
+.cropListPage{
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.cropListPage h1{
+	text-align:center;	
+}
+.cropListNav{
+	text-align:center;	
+}
+.navBlock{
+	margin-top:3%;	
+}
+.addCropLeftCol, .addCropRightCol{
+	float:left;
+}
+.addCropBtn{
+	clear:both;
+}
+.addCropBtn button{
+	font-size: 1.2em;
+	padding:5px 10px;
+}
+ul.cropList{
+	padding:0px;
+	margin:0px;
+	list-style-type:none;
+	width:100%;
+	height:550px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.cropList li{
+	border-bottom: 1px dashed black;
+	padding:0px;
+	margin:0px;
+	opacity:.9;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+	background-color:#efefef;	
+}	
+.cropList li:nth-child(even) {background: #dedede}
+.cropList li:hover{
+	background-color:#fff;	
+	opacity:1;
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.cropListPreviewBlock{
+	text-decoration:none;
+	display:block;
+	padding:10px;
+	color:#444;
+}
+.cropPreviewItem h2{
+	font-size:1.5em;
+}
+.cropPreviewItem h3{
+	font-size:0.8em;
+}
+.cropPreviewItem h4{
+	font-size:0.7em;
+}
+.cropPreviewLeftCol{
+	float:left;
+	width:33%;
+}
+
+.cropPreviewRightCol{
+	width:63%;
+	float:left;
+	margin-left:4%;
+}
+
+/********************************************Crop Profile Page *************************************/
+.cropProfilePage{
+	width:500px;
+	margin-left:auto;
+	margin-right:auto;	
+}
+.cropProfileCtr{
+	width:100%;
+	text-align:center;
+}
+.cropProfileNav{
+	width:100%;
+}
+.cropProfileCol{
+	padding:10px;	
+}
+.cropProfileLeftCol{
+	float:left;	
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;	
+}
+.cropProfileRightCol{
+	float:left;	
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;	
+}
+.cropProfileCol h1, .cropProfileCol h3{
+	padding:0px;	
+	margin:0px;
+}
+.cropProfileCol h1{
+	font-size:2em;	
+	display:inline-block;
+}
+.cropProfileCol h3{
+	font-size:0.8em;
+	color:#888;	
+}
+.imageCarousel{
+	list-style-type:none;
+	margin:0; padding:0;	
+}
+.detailsImageCtr{
+	cursor:pointer;	
+}
+.varietyStamp{
+	font-size:0.8em;	
+	color:#42E500;
+}
+.cropDetailsBlock{
+	margin-top:2%;
+	background-color:#eee;
+	border-radius: 15px;
+	padding:15px;	
+	display:inline-block;
+	vertical-align:top;
+}
+.cropDetailsLine{
+	font-size:1.2em;
+	line-height:0.9em;
+	padding-bottom:5%;	
+}
+.cropDetailsTitle{
+	font-size:0.6em;
+	color:#666;	
+}
+.propGermDetailsBlock{
+	
+}
+.cropNotesTabs{
+	margin-top:5%;
+}
+.cropNotesTabs .panel{
+	text-align:left;
+	margin-top:3%;
+}
+.nav-pills{
+	font-size:0.95em;	
+}
+ul.cropNotesTabList{
+	margin:0; padding-left:10px;
+}
+ul.cropNotesTabList li{
+	list-style-type: none;
+	border-bottom:1px solid #ddd;
+	padding:0px 5px;
+}
+li.activeHighlight{
+	background-color:rgba(0, 255, 0, 0.4);	
+}
+ul.cropNotesTabList li:hover{
+	background-color:rgba(0, 0, 255, 0.1);
+}
+ul.cropNotesTabList li textarea{
+	width:80%;
+	padding:8px;
+	background:none;
+	border:0;
+	margin:0;
+	font-size:0.8em;
+	line-height:160%;
+	overflow:hidden;
+}
+ul.cropNotesTabList li textarea:focus{
+	background-color:yellow;
+}
+.noteIcons{
+	vertical-align: top;
+	display:inline-block;
+	margin-right:4px;
+	margin-top:5px;
+	cursor:pointer;
+}
+.noteIcons:hover{
+	background-color:rgba(255, 0, 0, .2);
+}
+.noteHighlight, .noteUniversal{
+	opacity:0.2;
+}
+.noteHighlight:hover, .noteUniversal:hover{
+	opacity:1;
+}
+.activeHighlight .noteHighlight, .activeUniversal .noteUniversal{
+	opacity:1;	
+}
+.editImagesTabPanel{
+	position:absolute;
+	z-index:100;
+	background-color:white;
+	padding:20px;
+	border:1px solid #888;
+	top:200px;
+	text-align:left;
+	border-radius: 15px;
+	box-shadow: 10px 10px 5px #888888;
+	display:none;
+}
+.addImageCtr{
+	padding:20px;
+}
+.reorderTabCtr{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	height:300px;
+}
+.reorderImageCtr{
+	padding:20px;
+}
+.reorderColImg{
+	padding:10px;	
+}
+.reorderColCaption{
+	padding:5px;	
+}
+.reorderColRadio{
+	padding:10px;	
+}
+.addImageCtr input{
+	margin:5px;
+}
+.tabPanelNav{
+	padding-top:10px;	
+}
+.fjo_ctr{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	height:400px;
+}
+.fjo_ctr ul.fjo_list{
+	list-style-type:none;
+	margin:0; padding:0;
+}
+.fjo_header_bar{
+	color:#999;
+	font-style:italic;	
+}
+.fjo_record{
+}
+.fjo_record h3{
+	font-size:1.1em;
+	color:#1BD000;
+}
+.fjo_record_date{
+	font-size:0.75em;
+	color:#999;	
+}
+.fjo_record_copy{
+	font-size:0.75em;
+	padding-top:10px;	
+}	
+.fjo_record_copy ul{
+	list-style-type:circle;
+	padding:0px; margin:0px;
+}
+.fjo_record_copy li{
+	padding:0px; margin:0px;
+	margin-left:20px;
+}
+	
+/******************************************* CAROUSEL STYLES *****************************/
+.carousel-control.right, .carousel-control.left{
+	background:none;	
+}
+.cropCarouselCtr{
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;	
+}
+.carousel-indicators{
+	left:0px; bottom:0px;
+	background-color:rgba(0, 0, 0, 0.7);
+	opacity:0.8;
+	width:100%;
+}
+.carousel-caption{
+	display:none;
+	font-size:1.5em;
+	opacity:.5;
+	font-weight:bold;
+	bottom:0px;	left:0px;
+	text-transform:lowercase;
+	width:100%;
+	padding-bottom:20px;
+
+}
+
+/***************************************** CROP PLAN ******************************/
+.planPage{
+	max-width:1080px;
+	margin-left:auto; margin-right:auto;
+}
+.planPage h2{
+	width:100%;
+	text-align: center;
+}
+#existingCropCtr, #addCropCtr{
+	float:left;
+	width:500px;
+	margin:0px 20px;
+}
+.existingCropPlan{
+	width:100%;
+}
+.existingCropPlan ul{
+	list-style-type: none;
+	margin:0; padding:0;
+}
+ul#existingCropList{
+	padding-bottom:30px;
+}
+ul#existingCropList li.existingCrops:nth-child(even){
+	background-color:white;
+}
+ul.listHeader{
+	font-weight:bold;
+	text-transform: uppercase;
+}
+ul.inlineList li{
+	display:inline-block;
+	font-size:0.8em;
+	vertical-align: top;
+}
+ul.inlineList li.cropname{
+	width:240px;
+}
+ul.inlineList li.succ{
+	width:100px;
+}
+ul.inlineList li.date{
+	width:50px;
+}
+ul.inlineList li.delete{
+	width:50px;
+	text-align: center;
+}
+delete-crop-from-plan{
+	cursor:pointer;
+	display:block;
+	color:red;
+}
+delete-crop-from-plan:hover{
+	color:#999;
+}
+
+.addCropLine{
+	width:100%;
+}
+.addCropLine #d_addCropCode{
+	width:36%;
+}
+.addCropLine #d_addCrop{
+	width:60%;
+}
+.addCropLine div, .addCropLine select{
+	margin-bottom:10px;
+}
+.addCropLine div.cropSuccessionPlants input{
+	width:30px;
+}
+.add-crop-to-plan{
+	display:block;
+	width:80px; height:40px;
+	background-color:blue;
+	color:white;
+	text-align:center;
+	padding-top:10px;
+	text-transform: uppercase;
+	font-weight:bold;
+}
+.add-crop-to-plan:hover{
+	text-decoration: none;
+	background-color:cyan;
+}
+
+#generatePlanBtnCtr{
+	width:300px;
+	margin-left: auto; margin-right: auto;
+	margin-top:50px;
+	text-align: center;
+}
+#generatePlanBtnCtr button{
+	font-size:1.5em;
+	padding:10px 20px;
+	text-transform: uppercase;
+}
+
+/***************************************** TASK LIST ******************************/
+section.planPage .navBlock{
+	display:inline-block;
+	margin:0; padding:0;
+}
+.navBlocksCtr{
+	width:100%;
+	text-align:center;
+	padding:20px 0px;
+	background:#ccc;
+	border-top-left-radius: 20px; 
+	border-top-right-radius: 20px; 
+}
+#taskListCtr ul{
+	list-style-type: none;
+	margin:0; padding:0;
+}
+#taskListCtr li{
+	padding:0.15% 0.5%;
+}
+ul#taskList{
+	height:400px;
+	overflow: scroll;	
+}
+li.listHeaderCtr{
+	background:#aaa;
+}
+
+
+#taskListCtr ul.listHeader li{
+	margin:0; padding:0.5%;	
+}
+li.tsk_complete_header{ width:2%; }
+li.tsk_complete div{ width:15px; height:15px; margin-top: 3px; border:1px solid green; background:white; }
+li.tsk_tasksubject{	width:20%; }
+li.tsk_plot{	width:4%; }
+li.tsk_task{	width:10%; }
+li.tsk_date{	width:4%; }
+li.tsk_amount{	width:15%; text-align:right; }
+li.tsk_amount input{ text-align:right!important; }
+li.tsk_succession{	width:4%; }
+li.tsk_notes{	width:30%; }
+#taskListCtr ul li.delete{	width:5%; }
+
+li.task_item:nth-child(even) { background: #dedede; }
+li.task_item input { background: inherit; display:block; width:100%; text-align:left;  }
+
+li.task_item:hover{ background: yellow; }
+
+li.task_item > ul[thistaskstatus="disabled"]{
+	background:rgba(255, 0, 0, 0.3);
+}
+li.task_item > ul[thistaskstatus="completed"]{
+	background:rgba(0, 0, 255, 0.3);
+}
+
+li.task_item, li.harvest_item{
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+li.task_item:hover, li.harvest_item:hover{
+	-webkit-transform: scale(1.01);
+	-moz-transform: scale(1.01);
+	-ms-transform: scale(1.01);
+	transform: scale(1.01);	
+}
+
+
+/***************************************** HARVEST LIST ******************************/
+.addHarvestBlock{
+	display:block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:0px; margin-bottom:15px;
+}
+#harvestListCtr ul{
+	list-style-type: none;
+	margin:0; padding:0;
+}
+#harvestListCtr li{
+	padding:0.15% 0.5%;
+}
+#harvestListCtr ul.listHeader li{
+	margin:0; padding:0.5%;	
+}
+li.hrv_subject{	width:20%; }
+li.hrv_plot{	width:4%; }
+li.hrv_date{	width:4%; }
+li.hrv_amount{	width:15%; text-align:right; }
+li.hrv_amount input{ text-align:right!important; }
+li.hrv_notes{	width:46%; }
+#harvestListCtr ul li.delete{	width:5%; }
+
+li.harvest_item:nth-child(even) { background: #dedede; }
+li.harvest_item input { background: inherit; display:block; width:100%; text-align:left;  }
+
+li.harvest_item:hover{ background: yellow; }
+
+ul#harvestList{
+	height:400px;
+	overflow: scroll;	
+}
+
+/***************************************** ANIMATIONS ******************************/
+
+.cropPreviewItem.ng-enter.ng-enter-active,
+.cropPreviewItem.ng-leave{
+	opacity:1;
+	height:80px;
+	overflow: hidden;	
+}
+.cropPreviewItem.ng-leave.ng-leave-active,
+.cropPreviewItem.ng-enter{
+	opacity:0;
+	height:0px;
+	overflow: hidden;	
+}
+
+

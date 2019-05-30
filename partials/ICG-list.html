@@ -1,0 +1,49 @@
+<section class="cropListPage">
+	<div class="cropListCtr">
+    	<!--<h1>Crop Directory</h1>-->
+        <div class="cropListNav"> 
+            <div class="searchBlock navBlock">
+                <label></label>
+                <input ng-model="query" placeholder="Search for crops" width="100%" autofocus>
+                &nbsp; &nbsp;| &nbsp;&nbsp;<div class="addCropBtn create-new-crop glyphicon glyphicon-plus-sign">
+                </div>
+            </div>
+        	
+            <div class="orderingBlock navBlock">
+			    <label class="">by:
+                    <select ng-model="cropOrder">
+                        <option value="varietyName">Name</option>
+                        <option value="cropCode">Crop Code</option>
+                        <option value="dateAdded">Date Added</option>
+                    </select>
+                </label>
+                &nbsp;&nbsp;&nbsp;<label class="formgroup">
+                    <input type="radio" ng-model="direction" name="direction" checked>
+                    <div class="glyphicon glyphicon-sort-by-attributes"></div>
+                    </label>&nbsp;&nbsp;&nbsp;
+                <label class="formgroup">
+                    <input type="radio" ng-model="direction" name="direction" value="reverse">
+                    <div class="glyphicon glyphicon-sort-by-attributes-alt"></div>
+                </label>
+            </div>
+        </div>
+    
+        <ul class="cropList">
+            <li ng-animate="'animate'" class="cropPreviewItem" ng-repeat="crop in crops | filter:query | orderBy:cropOrder:direction">
+                <a class="cropListPreviewBlock" href="#/details/{{crop.varietyId}}">
+                    <div class="cropPreviewLeftCol">
+                        <span ng-show="crop.imageThumb"><img src="http://localhost/__FARM_DIGITAL/_GardenJournal/wp-content/uploads/{{crop.imageThumb}}" width="100%" alt=""/></span>                        
+                        <span ng-show="!crop.imageThumb"><img src="images/noThumbPlaceholder.png" width="100%" alt=""/></span>
+
+                    </div>
+                    <div class="cropPreviewRightCol">
+                        <h2>{{crop.varietyName}}</h2>
+                        <h3>{{crop.cropCode}}</h3>
+                        <h4>{{crop.dateAdded | displayDate}}</h4>
+                    </div>
+                    <div class="clr"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
