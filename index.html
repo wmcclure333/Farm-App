@@ -15,45 +15,15 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
 
 <script>
-	$(document).ready(function(e) {
-		$('.editable_block').editable({inlineMode: true});
-		$('.carousel').carousel();
-
-    $(".navbar-nav li a").click(function(){
-      $(".navbar-nav li").removeClass("active");
-      $(this).parent().addClass("active");
-    });
-    $("#seasonId").change(function(){
-      location.reload();
-    });
-    $("#yearId").change(function(){
-      location.reload();
-    });
+    $(document).ready(function(e) {
+	$('.editable_block').editable({inlineMode: true});
+	$('.carousel').carousel();
 
     var today = Date.now();
     var lastFrost = new Date("2017-04-23");  //sun is the cutoff for the week
     var weeks = Math.ceil((today-lastFrost)/ 604800000);
     $("#current_week").html(weeks);
-
-    var aThisPage = window.location.href;
-    aThisPage = aThisPage.split("/");
-    var thisPage = aThisPage[aThisPage.length - 1];
-    switch(thisPage){
-      case "list":
-        $(".navbar-nav li").removeClass("active");
-        $("#btn_icg").addClass("active");
-        break;
-      case "plan":
-        $(".navbar-nav li").removeClass("active");
-        $("#btn_plan").addClass("active");
-        break;
-      case "tsk":
-        $(".navbar-nav li").removeClass("active");
-        $("#btn_tsk").addClass("active");
-        break;
-    }
-	});
-
+    });
 </script>
 
 
@@ -66,17 +36,6 @@
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <!--<div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>-->
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -86,35 +45,7 @@
         <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/tsk" data-toggle="tooltip" title="Task List"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;TASK</a></li>
         <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/plot" data-toggle="tooltip" title="Plot Graphics"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;PLOT</a></li>
         <li id="btn_tsk"><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/blap" data-toggle="tooltip" title="Bottom Line App"><span class="glyphicon glyphicon-piggy-bank"></span>&nbsp;&nbsp;BLAP</a></li>
-        <!--<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>-->
       </ul>
-      <!--<form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class
-
-        ="btn btn-default">Submit</button>
-      </form>-->
-              <!--<div class="idSetting"><input id="yearId" name="yearId" value="2016" size="5"></div>
-        <div class="idSetting">
-          <select id="seasonId" name="seasonId" width="5">
-            <option value="spring" selected>spring</option>
-            <option value="fall">fall</option>
-          </select>
-        </div>-->
-
           
         <div class="idSetting"><input id="yearId" name="yearId" value="2017" size="5"></div>
         <div class="idSetting">
@@ -124,18 +55,6 @@
           </select>
         </div>
         <div class="idSetting thisWeek">This is week <span id="current_week"></span></div>
-      <!--<ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>-->
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
