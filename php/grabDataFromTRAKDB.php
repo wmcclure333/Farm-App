@@ -1,6 +1,5 @@
 <?php
-/*
-*/
+
 error_reporting(E_ERROR);
 include("aa_link.php");
 
