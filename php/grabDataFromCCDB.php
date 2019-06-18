@@ -1,6 +1,5 @@
 <?php
-/*
-*/
+
 error_reporting(E_ERROR);
 include("aa_link.php");
 
@@ -20,10 +19,9 @@ $rs->data_seek(0);
 $count = 0;
 while($row = $rs->fetch_assoc()){
 	$thisRec = null;
-    $thisRec->cropIndex = $row['index'];
-    $thisRec->cropCode = $row['CropCode'];
-    $thisRec->cropName = $row['CropName'];
-   // $thisRec->cropKeywords = $row['SearchKeywords'];
+    	$thisRec->cropIndex = $row['index'];
+    	$thisRec->cropCode = $row['CropCode'];
+    	$thisRec->cropName = $row['CropName'];
 	$aRecs[$count] = $thisRec;
 	$count++;
 }
