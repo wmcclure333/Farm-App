@@ -25,7 +25,7 @@ if($type == "update"){
 	$rs=$db->query($sql);
 	$rs->data_seek(0);
 	$row = $rs->fetch_assoc();
-    $thisCropId = $row['VarietyId'];
+        $thisCropId = $row['VarietyId'];
 	
 	mysqli_close($db);
 	echo $thisCropId;
