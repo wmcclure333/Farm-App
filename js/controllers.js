@@ -1,26 +1,11 @@
 var cropControllers = angular.module('cropControllers', ['ngAnimate']);
-/*cropControllers.factory('mySharedService', function($rootScope){
-	var sharedService = {};
-	var currentCrop = {};
-	//sharedService.message = 'test works';
-	sharedService.prepForBroadcast = function(thisCrop){
-		this.currentCrop = thisCrop;
-		this.broadcastCrop();
-	}
-
-	sharedService.broadcastCrop = function(){
-		$rootScope.$broadcast('broadcastCropData');		
-	}
-
-	return sharedService;
-});*/
 
 cropControllers.controller("ListController", ['$scope', '$http',function($scope, $http) {
 	$http.get('php/grabDataFromMCDB.php').success(function(data){
 		$scope.crops = data.aRecs;
 		$scope.cropOrder = 'varietyName';	
 	});
-}]); //end ListController
+}]); 
 
 cropControllers.controller("DetailsController", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 	var temp = this;
@@ -40,22 +25,7 @@ cropControllers.controller("DetailsController", ['$scope', '$http', '$routeParam
 		});
 		$scope.propMethodSelected = $scope.crops[$scope.whichItem].propagationMethod;
 		$scope.seedSupplierSelected = $scope.crops[$scope.whichItem].seedSupplier;
-
-  		// another controller or even directive
-				
-		//code to add next/prev links to cycle through crops	
-		//$scope.whichItem = $routeParams.itemId;	
-		/*if($routeParams.itemId > 0){
-			$scope.prevItem = Number($routeParams.itemId) - 1;	
-		}else{
-			$scope.prevItem = $scope.crops.length - 1;	
-		}
-		if($routeParams.itemId < $scope.crops.length - 1){
-			$scope.nextItem = Number($routeParams.itemId) + 1;	
-		}else{
-			$scope.nextItem = 0;	
-		}*/
-	});		//END .GET
+  	});		//END .GET
 	  
 	  
 	$scope.getFieldOptions = function (thisField) {
@@ -69,11 +39,6 @@ cropControllers.controller("DetailsController", ['$scope', '$http', '$routeParam
     	return res;
 	  }
 	};
-
-	/*this.grabCrop = function(cropId){
-		return $scope.crops[1];
-	};*/
-	
 	
 }]); //end DetailsController
 
@@ -93,19 +58,19 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 	$scope.vid = document.getElementById("audioClick");
 
 	//show/hide PLAN or TASK display based on which tab is currently active (by URL)
-    var aThisPage = window.location.href;
-    aThisPage = aThisPage.split("/");
-    var thisPage = aThisPage[aThisPage.length - 1];	
+    	var aThisPage = window.location.href;
+    	aThisPage = aThisPage.split("/");
+    	var thisPage = aThisPage[aThisPage.length - 1];	
 	switch(thisPage){
-      case "plan":
-        $("#taskBlocks").css("display", "none");
-        $("#planBlocks").css("display", "block");
-        break;
-      case "tsk":
-        $("#taskBlocks").css("display", "block");
-        $("#planBlocks").css("display", "none");
-        break;
-    }    
+      		case "plan":
+        		$("#taskBlocks").css("display", "none");
+       			$("#planBlocks").css("display", "block");
+        		break;
+      		case "tsk":
+        		$("#taskBlocks").css("display", "block");
+        		$("#planBlocks").css("display", "none");
+        		break;
+    	}    
 
 	//same post call here is repeated below in reloadExistingCropsList().  That function is called after an insert is made in order to refresh the updated list. Might need to find a cleaner way to do this w/o repeating code.
 	$http.post('php/grabDataFromPLANDB.php', {seasonId: $scope.seasonId, yearId: $("#yearId").val()}).success(function(data0){
@@ -113,10 +78,10 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 	});
 	$http.get('php/grabDataFromMCDB.php').success(function(data1){
 		$scope.crops = data1.aRecs;
-	});		//END .GET
+	});		
 	$http.get('php/grabDataFromCCDB.php').success(function(data2){
 		$scope.cropcodes = data2;
-	});		//END .GET
+	});		
 	$http.post('php/grabDataFromTSKDB.php', {seasonId: $scope.seasonId, yearId: $("#yearId").val()}).success(function(data3){
 		$scope.theTaskList = data3.aRecs;
 	});
@@ -140,8 +105,6 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 			 	$scope.$parent.existingCropsInPlan = data0.aRecs;
 			 	$scope.$parent.generateTaskList();
 			 }
-			
-			console.log("Updated!");
 		});
 	};
 
@@ -153,8 +116,6 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 			}else if(thisScope == "inside"){
 				$scope.$parent.theTaskList = data0.aRecs;
 			}
-			
-			console.log("Task List Updated!");
 		});
 	}; 	
 
@@ -174,8 +135,6 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 				});				
 				$scope.$parent.theHarvestList = data0.aRecs;
 			}
-			
-			console.log("Harvest List Updated!");
 		});
 	}; 	
 
@@ -205,7 +164,7 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 				aCrops.push(this);	
 			}
 		});  
-    	return aCrops;
+    		return aCrops;
 	};
 
 	//take crop variety id and get all crop data for this variety from mcdb
@@ -246,7 +205,6 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 	$scope.generateSuccessionFieldDates = function(varietyId){
 		var aSeedingFirstLastDates = $scope.getFirstAndLastSeedingDatesForCrop(varietyId);
 		var aSeedingDates = $scope.generateSuccessionDateArray(aSeedingFirstLastDates[0], aSeedingFirstLastDates[1], $(".cropSuccessionPlants").length);
-		//console.log($(".cropSuccessionPlants").length);
 		$(".cropSuccessionPlants").each(function(index){
 			$("#d_dateSuccession"+index).val(aSeedingDates[index]);
 		});
@@ -304,14 +262,6 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 				succCount++;
 			}
 			var numSuccessionsForThisCrop = succCount - 2;
-
-			//get 1st and last seeding dates based on variety and season
-			//var aSeedingDates = $scope.getFirstAndLastSeedingDatesForCrop(val.varietyId);
-			//var dateOfFirstSeeding; var dateOfLastSeeding;
-			//dateOfFirstSeeding = aSeedingDates[0]; dateOfLastSeeding = aSeedingDates[1];
-
-			//determine SEED START dates for all successions, make sure successions fall within the seeding range for this crop
-			//var aSuccessionPlantingProgression = $scope.generateSuccessionDateArray(dateOfFirstSeeding, dateOfLastSeeding, numSuccessionsForThisCrop);
 			var aSuccessionPlantingProgression = [];
 			for(cc = 1; cc <= 10; cc++){
 				if(val["successionDate"+cc] != "-100"){
@@ -387,9 +337,7 @@ cropControllers.controller("PlanController", ['$scope', '$http', function($scope
 					tempObj.notes = "";
 					aTempTaskList.push(tempObj);
 				}
-			}
-
-			//figure out plot data somehow?					
+			}				
 		});
 
 		$http.post('php/insertDataToTSKDB.php', {type: "generate", aTasks: aTempTaskList, seasonId: $scope.seasonId, yearId: $("#yearId").val()}).success(function(data2){
@@ -408,7 +356,6 @@ cropControllers.controller("ImagesPanelController", ['$scope', '$http','$routePa
 	
 	$http.post('php/grabDataFromMCDBImages.php', {dataType: 'single', cropId: $scope.whichItem}).success(function(data){
 		$scope.images = data;
-		//console.log($scope.images[0].imageFile);
 	});
 }]); //end ImagesPanelController
 
@@ -458,7 +405,6 @@ cropControllers.controller("NotesPanelController", ['$scope', '$http','$routePar
 		//Grab FJO records based on crop type and variety name keywords
 		var searchKeywordsFiltered = $scope.searchKeywords.replace(", ", ",");
 		$http.post('php/grabDataFromFJO.php', {searchKeywords: searchKeywordsFiltered}).success(function(fjoData){
-			//console.log(fjoData);
 			$scope.fjo = fjoData;
 			for(c = 0; c < fjoData.length; c++){
 				console.log(fjoData[c].postId+"<br>");
@@ -530,10 +476,6 @@ cropControllers.controller("NotesPanelController", ['$scope', '$http','$routePar
 	this.isSelected = function(checkTab){
 		return this.tab === checkTab;
 	};
-
-	/*$("ul.cropNotesTabList li textarea").each(function(){
-		console.log($(this).html());
-	});*/
 
 }]); //end NotesPanelController
 
@@ -662,9 +604,7 @@ cropControllers.directive('createNewCrop', function($http) {
 cropControllers.directive('elasticInput', function() {
   	return {
 		restrict: 'A',
-		//scope: {},
 		link: function(scope, element, attr) {
-			//console.log("in this");
 			attr.$observe('value', function(value) {
 				thisValue = value;
  				if(thisValue){
@@ -688,16 +628,7 @@ cropControllers.directive('elasticInput', function() {
 cropControllers.directive('elasticTextarea', function($timeout) {
   	return {
 		restrict: 'A',
-		//scope: {},
 		link: function(scope, element, attr) {
-			//console.log("in this");
-			//adjustInputHei($(this).html());
-			/*element.$observe('value', function(value) {
-				thisValue = value;
- 				if(thisValue){
-					adjustInputHei(thisValue);
-				}
-			});*/
            
 			element.on("keypress", function(){adjustInputHei($(this).html());});
 			function adjustInputHei(val){
@@ -1020,7 +951,6 @@ cropControllers.directive('addManualTask', function($http, $routeParams, $compil
 cropControllers.directive('generateTaskList', function($http, $routeParams, $compile) {
   return {
 	  restrict: 'AE',
-	  //controller: 'PlanController',
 		link: function(scope, element, attr){
 			element.on("click", function(){
 				scope.generateTaskList();
@@ -1089,16 +1019,8 @@ cropControllers.directive('editableNote', function($http, $routeParams, $compile
 			element.on("change", function(){
 				noteId = $(this).attr("id").substr(6);
 				noteVal = $(this).val();
-				/*if(noteVal == ""){	//if field is empty, delete the note from DB
-					$http.post('php/insertDataToCropnotes.php', {noteId: noteId, type:'delete'}).success(function(data2){
-						console.log("Note Deleted!");
-						//remove deleted element from 'notes' array so it no longer displays in binded li repeat
-						for(c = 0; c < scope.notes.length; c++){
-							if(scope.notes[c].noteId == noteId)
-								scope.notes.splice(c, 1);	
-						}
-					});
-				}else*/ if(noteId == '_new'){	//insert new note record
+
+				if(noteId == '_new'){	//insert new note record
 					var cropId = $routeParams.itemId;
 					var aNoteType = $(this).attr("name").split('_');
 					var noteType = aNoteType[1];
@@ -1134,11 +1056,9 @@ cropControllers.directive('editableNote', function($http, $routeParams, $compile
 								scope.notesGeneral.push(tempObj);
 								break;
 						}
-						//scope.notes.push(tempObj);
 					});
 					
 				}else{	//update existing note record
-					//Update DB
 					$http.post('php/insertDataToCropnotes.php', {noteVal: noteVal, noteId:noteId, type:'update'}).success(function(data2){
 					});
 				}
@@ -1224,25 +1144,4 @@ cropControllers.directive('noteUniversal', function($http, $routeParams, $compil
     }
 });
 
-
-/*cropControllers.directive('nullOrNumber', function($document) {
-	return {
-		restrict: 'A',
-		require: '?ngModel',
-		link: function(scope, ele, attrs, ngModel){
-			if(!ngModel) return;
-			ngModel.$parsers.unshift(
-				function(viewValue){
-					var i = parseInt(viewValue);
-					if(i >= 0 && i < 10){
-						ngModel.$setValidity('nullOrNumber', true);
-						return viewValue;	
-					} else {
-						ngModel.$setValidity('nullOrNumber', false);
-						return undefined;	
-					}
-			});	
-		}
-	};
-});*/
 
