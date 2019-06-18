@@ -20,14 +20,14 @@ $rs->data_seek(0);
 $count = 0;
 while($row = $rs->fetch_assoc()){
 	$thisRec = null;
-    $thisRec->noteId = $row['NoteId'];
-    $thisRec->cropId = $row['CropId'];
+    	$thisRec->noteId = $row['NoteId'];
+    	$thisRec->cropId = $row['CropId'];
 	if($thisRec->cropId / 1000 >= 1) $thisRec->isUniversal = 1;
 	else $thisRec->isUniversal = 0;
-    $thisRec->noteType = $row['NoteType'];
-    $thisRec->isNoteHighlighted = $row['IsNoteHighlighted'];
-    $thisRec->noteCopy = $row['NoteCopy'];
-    $thisRec->dateAdded = $row['DateAdded'];
+    	$thisRec->noteType = $row['NoteType'];
+    	$thisRec->isNoteHighlighted = $row['IsNoteHighlighted'];
+    	$thisRec->noteCopy = $row['NoteCopy'];
+   	 $thisRec->dateAdded = $row['DateAdded'];
 	$aRecs[$count] = $thisRec;
 	$count++;
 }
