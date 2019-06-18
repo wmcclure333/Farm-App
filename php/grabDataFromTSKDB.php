@@ -16,7 +16,7 @@ $rs=$db->query($sql);
 $rs->data_seek(0);
 $count = 0;
 while($row = $rs->fetch_assoc()){
-	$thisRec = null;
+    $thisRec = null;
     $thisRec->entryId = $row['EntryId'];
     $thisRec->overwriteStatus = $row['OverwriteStatus'];
     $thisRec->taskStatus = $row['TaskStatus'];
@@ -31,8 +31,8 @@ while($row = $rs->fetch_assoc()){
     $thisRec->dateAdded = $row['DateAdded'];
     $thisRec->seasonId = $row['SeasonId'];
     $thisRec->yearId = $row['YearId'];
-	$aRecs[$count] = $thisRec;
-	$count++;
+    $aRecs[$count] = $thisRec;
+    $count++;
 }
 
 mysqli_close($db);
