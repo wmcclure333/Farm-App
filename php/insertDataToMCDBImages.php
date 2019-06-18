@@ -20,14 +20,9 @@ if($type == "update"){
 	$thisId = $request->id;
 	$fileName = $request->fileName;
 	$fileCaption = $request->fileCaption;
-	//$isThumb = $request->isThumb;
-	//if($isThumb == 1) $fileName .= "-150x150.png";
-	//else if($isThumb == 0) $fileName .= "-300x200.png";
 	$sql='INSERT INTO mcdb_images (VarietyId, DateAdded, ImageFile, ImageCaption, IsThumb) VALUES ('.$thisId.', '.$thisDate.', "'.$fileName.'", "'.$fileCaption.'", 0)';
 	$rs=$db->query($sql);
 	mysqli_close($db);
-
-	//echo $thisCropId;
 }
 
 
