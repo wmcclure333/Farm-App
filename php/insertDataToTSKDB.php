@@ -13,11 +13,6 @@ $yearId = $request->yearId;
 if($type == "generate"){
 	$aTasks = $request->aTasks;
 
-	//remove all existing "replaceable" tasks from db before adding new tasks
-	//$sql1='DELETE FROM tskdb WHERE TaskStatus <> "completed" AND OverwriteStatus = "replaceable" AND SeasonId = "'.$seasonId.'" AND YearId = '.$yearId;
-	//$rs1=$db->query($sql1);
-
-
 	if(sizeof($aTasks) == 0){	//if deleting the last crop from plan, skip the insert below and return a success value
 		$rs = 1;
 	}else{
