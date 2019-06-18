@@ -16,7 +16,7 @@ $rs=$db->query($sql);
 $rs->data_seek(0);
 $count = 0;
 while($row = $rs->fetch_assoc()){
-	$thisRec = null;
+    $thisRec = null;
     $thisRec->entryId = $row['EntryId'];
     $thisRec->varietyId = $row['VarietyId'];
     $thisRec->seasonId = $row['SeasonId'];
@@ -42,8 +42,8 @@ while($row = $rs->fetch_assoc()){
     $thisRec->successionDate9 = $row['SuccessionDate9'];
     $thisRec->successionDate10 = $row['SuccessionDate10'];
     $thisRec->dateAdded = $row['DateAdded'];
-	$aRecs[$count] = $thisRec;
-	$count++;
+    $aRecs[$count] = $thisRec;
+    $count++;
 }
 
 mysqli_close($db);
