@@ -38,7 +38,6 @@
         <div id="addCropCtr">
             <h2 class="">Add Crop(s) to Plan</h2>
             <div class="addCropLine cropDetailsBlock">
-                <!--<input class="editable-block centered_text" id="d_propMethod" value="{{crops[whichItem].propagationMethod | propMethod}}" elastic-input>-->
                 <select class="editable-block" id="d_addCropCode" database="none" name="AddCropCode" ng-model="cropCodeSelected" ng-options="item as item.cropName for item in getCropCodeOptions() track by item.cropCode">
                 </select>
                 <select class="editable-block" id="d_addCrop" database="none" name="AddCrop" ng-model="cropSelected" ng-options="item as item.varietyName for item in getCropOptions(cropCodeSelected.cropCode) track by item.varietyId" update-seed-dates>
@@ -57,7 +56,6 @@
             <div><a href="http://localhost/__FARM_DIGITAL/_thefarm/index.html#/list">Add new varieties</a></div>
         </div>
         <div class="clr"></div>
-        <!--<div id="generatePlanBtnCtr"><button type="button" class="btn btn-danger" id="generatePlanBtn" generate-task-list>Generate Task List</button></div>-->
         <p>&nbsp;</p><p>&nbsp;</p>
     </div><!-- planBlocks -->
 
