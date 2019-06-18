@@ -4,11 +4,7 @@ theFarmApp.filter('noempty', function() {
 		return "--";
 	else return input;
   };
-})/*.filter('checkmark', function() {
-  return function(input) {
-    return input == 1 ? '\u2713' : '\u2718';
-  };
-})*/.filter('propMethod', function() {
+}).filter('propMethod', function() {
   return function(input){
 	  switch(input){
 		case "indoorBlock":
