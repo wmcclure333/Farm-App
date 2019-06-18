@@ -7,8 +7,8 @@ include("aa_link.php");
 //post data needs to be broken down since angular has sent the data in JSON format, not in $_POST vars
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-//$dataType = $request->dataType;
-$dataType = "single";
+$dataType = $request->dataType;
+
 if($dataType == "single"){
 	$keywordList = $request->searchKeywords;
 	$aSearchTheseKeywords = explode(",", $keywordList);
@@ -35,7 +35,6 @@ while($row = $rs->fetch_assoc()){
 			$tempStr = preg_replace("/[^A-Za-z0-9\-.\_:\"\'=\[\]\<\>\n\r\/&; ]/", '', $tempStr);
 			$tempStr = str_replace("</li>\n", "</li>", $tempStr);
 			$tempStr = str_replace("\n", "<br>", $tempStr);
-			//$tempStr = str_replace("</li><br>", "</li>", $tempStr);
 			$thisRec->postContent = $tempStr;
 			$thisRec->postTitle = $row['post_title'];
 			$thisRec->postDate = substr($row['post_date'], 0, 10);
@@ -103,25 +102,14 @@ foreach($aPostIds as $postid){
 		$thisRec = null;
 		$thisRec->postId = $row['ID'];
 		$tempStr = $row['post_content'];
-		//$tempStr = substr($tempStr, 0, 3489);
-		//$tempStr = ltrim($tempStr);
 		$tempStr = preg_replace("/[^A-Za-z0-9\-.\_:\"\'=\[\]\<\>\n\r\/&%; ]/", '', $tempStr);
 		$tempStr = str_replace("</li>\n", "</li>", $tempStr);
 		$tempStr = str_replace("\n", "<br>", $tempStr);
-		//$tempStr = str_replace("</li><br>", "</li>", $tempStr);
-		/*$tempStr = str_replace('[', '', $tempStr);
-		$tempStr = str_replace(']', '', $tempStr);
-		$tempStr = str_replace('=', '', $tempStr);
-		$tempStr = str_replace('<', '', $tempStr);
-		$tempStr = str_replace('>', '', $tempStr);
-		$tempStr = str_replace('/', '', $tempStr);
-		$tempStr = str_replace(':', '', $tempStr);
-		$tempStr = str_replace("'", "", $tempStr);*/
 		$thisRec->postContent = $tempStr;
 		$thisRec->postTitle = $row['post_title'];
 		$thisRec->postDate = substr($row['post_date'], 0, 10);
 		$thisRec->postModified = substr($row['post_modified'], 0, 10);
-		/*if($thisRec->postId == "858")*/ $aRecs[$count] = $thisRec;
+		$aRecs[$count] = $thisRec;
 		$count++;
 	}
 }
@@ -138,17 +126,8 @@ foreach($aRecs as $rec){
 		}
 		$count++;
 	}	
-}/*
-$highestIndex = $aIndicesToRemove[0]; $count = 0;
-$aIndicesToRemoveSorted = [];
-for($c = 0; $c < count($aIndicesToRemove); $c++){
-	foreach($aIndicesToRemove as $indexToDelete){
-		if($indexToDelete > $highestIndex){
-			$highestIndex = $indexToDelete;
-		}
-	}
-	$aIndicesToRemoveSorted[$c] = $highestIndex;
-}*/
+}
+
 foreach($aIndicesToRemove as $removeThisId){
 	$count = 0; $firstOne = 0;
 	foreach($aCompRecs as $thisPost){
