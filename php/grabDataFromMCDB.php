@@ -1,6 +1,5 @@
 <?php
-/*
-*/
+
 error_reporting(E_ERROR);
 include("aa_link.php");
 
@@ -88,8 +87,8 @@ $rs2->data_seek(0);
 $count2 = 0;
 while($row2 = $rs2->fetch_assoc()){
 	$thisRec2 = null;
-    $thisRec2->fieldName = $row2['FieldName'];
-    $thisRec2->fieldValue = $row2['FieldValue'];
+    	$thisRec2->fieldName = $row2['FieldName'];
+    	$thisRec2->fieldValue = $row2['FieldValue'];
 	$aFields[$count2] = $thisRec2;
 	$count2++;
 }
