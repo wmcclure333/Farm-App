@@ -29,10 +29,7 @@ input.noneditable_block{
 	top:-1000px;
 	visibility:hidden;	
 }
-/*.noShowHeight{
-visibility:visible;
-	top:200px;
-	}*/
+
 .toggle1{
 	opacity:1;
 	cursor:pointer;
