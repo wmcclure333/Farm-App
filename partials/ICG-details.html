@@ -13,12 +13,6 @@
             <div role="tabpanel" class="tab-pane active addImageCtr" id="addImageTab" add-crop-image>			
                 Image filename: <input class="centered_text" id="imgFile" name="imgFile" value="2016/06/IMG_0000" elastic-input><br>
                 Image caption: <input class="centered_text" id="imgCaption" name="imgCaption" value="" elastic-input>
-                <!--<div>
-                    Is this a thumbnail? 
-                    <label><input type="radio" name="isThumb" value="1" id="isThumb_0">yes</label>
-                    <label><input type="radio" name="isThumb" value="0" id="isThumb_1" checked>no</label>
-                    <br>
-                </div>-->
                 <div class="tabPanelNav"><button class="submitImgBtn">Submit</button>&nbsp;<button class="cancelImgBtn">Cancel</button></div>
             </div>
             <div role="tabpanel" class="tab-pane reorderImageCtr" id="reorderImageTab" reorder-crop-image ng-controller="ImagesPanelController as imagesPanel">
@@ -41,8 +35,6 @@
         <div class="cropProfileNav"> 
         	<div class="noShow">test</div><span class="noShowHeight">test</span>
             <a href="index.html#/list">&laquo; Back to search</a>
-            <!--<a href="#/details/{{prevItem}}" class="">&lt;</a>
-            <a href="#/details/{{nextItem}}" class="">&gt;</a>-->
         </div>
         <form name="cropDetailsForm" novalidate>
       
@@ -96,9 +88,7 @@
                 <div class="cropDetailsLine"><span class="cropDetailsTitle">Row Spacing:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_rowSpacing" name="RowSpacing" value="{{crops[whichItem].rowSpacing | inches}}" elastic-input select-all-focus></div>
                 <div class="cropDetailsLine"><span class="cropDetailsTitle">Seed Depth:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_seedDepth" name="SeedDepth" value="{{crops[whichItem].seedDepth | inches}}" elastic-input select-all-focus></div>
                 <div class="cropDetailsLine"><span class="cropDetailsTitle">Days to Harvest:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_daysMaturity" name="DaysToMaturity" value="{{crops[whichItem].daysToMaturity | noempty}}" elastic-input select-all-focus></div>
-                <!--<div class="cropDetailsLine"><span class="cropDetailsTitle">Range 1:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_range1" name="Range1" value="{{crops[whichItem].range1 | noempty}}" elastic-input></div>-->
-           <!-- </div>
-            <div class="harvDetailsBlock cropDetailsBlock">-->
+
                 <hr style="height:1px; background-color:#aaa">
                 <div class="cropDetailsLine"><span class="cropDetailsTitle">Storage Temp:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_storTemp" name="StorageTemp" value="{{crops[whichItem].storageTemp | temp}}" elastic-input select-all-focus></div>
                 <div class="cropDetailsLine"><span class="cropDetailsTitle">Storage Humidity:&nbsp;&nbsp;</span><input class="editable-block centered_text" id="d_storHumidity" name="StorageHumidity" value="{{crops[whichItem].storageHumidity | perc}}" elastic-input select-all-focus></div>
